@@ -8,17 +8,17 @@ import (
 func Generate(lenght int, generateType, optional string) string {
 	if len(optional) != 0 {
 		if generateType == "refid" {
-			return optional + "-" + EncodeRefID(lenght)
+			return optional + "-" + encodeRefID(lenght)
 		}
-		return optional + "-" + EncodeOTP(lenght)
+		return optional + "-" + encodeOTP(lenght)
 	}
 	if generateType == "refid" {
-		return EncodeRefID(lenght)
+		return encodeRefID(lenght)
 	}
-	return EncodeOTP(lenght)
+	return encodeOTP(lenght)
 }
 
-func EncodeOTP(max int) string {
+func encodeOTP(max int) string {
 	b := make([]byte, max)
 	n, err := io.ReadAtLeast(rand.Reader, b, max)
 	if n != max {
@@ -30,7 +30,7 @@ func EncodeOTP(max int) string {
 	return string(b)
 }
 
-func EncodeRefID(max int) string {
+func encodeRefID(max int) string {
 	b := make([]byte, max)
 	n, err := io.ReadAtLeast(rand.Reader, b, max)
 	if n != max {
